@@ -770,6 +770,36 @@ module.exports = exports = nano = function database_module(cfg) {
     }
 
     /*
+     * calls a list function
+     *
+     * @param {design_name:string} design document name
+     * @param {list_name:string} list function to call
+     * @param {view_name:string} view to call
+     * @param {params:object:optional} additions to the querystring
+     *
+     * @see relax
+     */
+     function list_view_docs(design_name,list_name,view_name,params,callback) {
+       if(typeof params === "function") {
+         callback = params;
+         params   = {};
+       }
+       var list_path = '_design/' + design_name + '/_list/' + list_name + "/" + view_name;
+       if (params.keys) {
+         var body = {keys: params.keys};
+         delete params.keys;
+         return relax(
+           { db: db_name, path: list_path
+           , method: "POST", params: params, body: body }, callback);
+       }
+       else {
+         return relax(
+           { db: db_name, path: list_path
+           , method: "GET", params: params },callback);
+       }
+     }
+ 
+    /*
     * calls a show function
     *
     * @param {design_name:string} design document name
@@ -935,6 +965,7 @@ module.exports = exports = nano = function database_module(cfg) {
       };
 
     public_functions.view         = view_docs;
+    public_functions.listview     = list_view_docs;
     public_functions.view.compact = function(design_name,cb) {
       return compact_db(db_name,design_name,cb);
     };
