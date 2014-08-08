@@ -1,17 +1,17 @@
 [
   { "method"   : "put"
-  , "path"     : "/att_insert"
+  , "path"     : "/multipart_insert"
   , "status"   : 201
   , "response" : "{ \"ok\": true }" 
   }
 , { "method"   : "put"
-  , "path"     : "/att_insert/new/att"
-  , "body"     : "Hello World!"
+  , "path"     : "/multipart_insert/foobaz"
+  , "body"     : "*"
   , "status"   : 201
-  , "response" : "{\"ok\": true, \"id\": \"new\", \"rev\": \"1-921bd51\" }"
+  , "response" : "{\"ok\": true, \"id\": \"foobaz\", \"rev\": \"1-921bd51\" }"
   }
 , { "method"   : "delete"
-  , "path"     : "/att_insert"
+  , "path"     : "/multipart_insert"
   , "status"   : 200
   , "response" : "{ \"ok\": true }" 
   }
